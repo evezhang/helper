@@ -3,7 +3,7 @@
 # - Last Modified: 10/30/2016 - make it pulic
 # - Library prerequisite: gem install dotenv gmail
 # - Store your gmail username and password to your environment with name "GMAIL_USERNAME" and "GMAIL_PASSWORD"
-# - To run: ruby log_hour_public.rb or ./log_hour_public.rb if you chmod +x this ruby file
+# - To run: ruby log_hour_public.rb <REAL/TEST> [special notes will quotation mark] or ./log_hour_public.rb <parm1> [parm2] if you chmod +x this ruby file
 
 # - Extract from Google Online Spreadsheet
 # - Prepare the message (Date Range, Logged Hours, Special Notes, Body Template)

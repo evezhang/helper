@@ -1,5 +1,6 @@
 #!/usr/bin/env ruby
-
+# - Author: Jingyiping Zhang
+# - Last Modified: 10/30/2016 - make it pulic
 
 # - Extract from Google Online Spreadsheet
 # - Prepare the message (Date Range, Logged Hours, Special Notes, Body Template)
@@ -19,18 +20,20 @@ GMAIL_PASSWORD = ENV['GMAIL_PASSWORD']
 GMAIL = Gmail.connect(GMAIL_USERNAME, GMAIL_PASSWORD)
 
 #Executiveprograms@brown.edu;zoe_stoll@brown.edu
-REAL_EMAIL = 'Executiveprograms@brown.edu;zoe_stoll@brown.edu;jingyiping_zhang@brown.edu'
-MY_EMAIL = 'jingyiping_zhang@brown.edu'
-#DB_NAME_REGEX  = /\S+_staging/
-#KEYWORDS_REGEX = /sorry|help|wrong/i
-SHEET_ID = '1ciejIwKmXbUgy615PjmNkDu6weLDOVG1wdXP5zcLlHA'
+# !!FIX ME!!
+# Add the email addresses here with ";" separator
+REAL_EMAIL = 'abc@samle.com;def@sample.com;myself@sample.com'
+MY_EMAIL = 'myself@sample.com'
+# !! FIX ME!!
+SHEET_ID = 'GOOGLE SHEET ID FROM THE URL'
 
 
 
 def create_reply(recipientEmail,subject,email_body)
   GMAIL.compose do
     to recipientEmail
-    subject "[EMCS2000] JINGYIPING ZHANG Worked Hours "+subject
+    # !!FIX ME!!
+    subject "[EMCS2000] MY_NAME Worked Hours "+subject
     body email_body
   end
 end
@@ -52,25 +55,6 @@ subject,body = data.extractData(specialNotes)
 
 reply = create_reply(recipientEmail,subject,body)
 GMAIL.deliver(reply)
-
-
-
-#
-#GMAIL.inbox.find(:unread, from: KUMARS_EMAIL).each do |email|
-#  if email.body.raw_source[KEYWORDS_REGEX] && (db_name = email.body.raw_source[DB_NAME_REGEX])
-#    backup_file = "/home/backups/databases/#{db_name}-" + (Date.today - 1).strftime('%Y%m%d') + '.gz'
-#    abort 'ERROR: Backup file not found' unless File.exist?(backup_file)
-#
-#    # Restore DB
-#    `gunzip -c #{backup_file} | psql #{db_name}`
-
-#    # Mark as read, add label and reply
-#    email.read!
-#    email.label('Database fixes')
-#    reply = create_reply(email.subject)
-#    GMAIL.deliver(reply)
-#  end
-#end
 
 
 

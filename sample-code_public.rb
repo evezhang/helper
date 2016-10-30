@@ -1,19 +1,26 @@
 #!/usr/bin/env ruby
+# - Author: Jingyiping Zhang
+# - Reference: https://developers.google.com/sheets/quickstart/ruby
 require 'google/apis/sheets_v4'
 require 'googleauth'
 require 'googleauth/stores/file_token_store'
 require 'date'
 require 'fileutils'
 class Extract_From_Google_Sheet
-  def initialize(spreadsheet_id='1ciejIwKmXbUgy615PjmNkDu6weLDOVG1wdXP5zcLlHA')
+  def initialize(spreadsheet_id='GOOGLE SHEET ID FROM THE URL')
     @spreadsheet_id = spreadsheet_id
     @OOB_URI = 'urn:ietf:wg:oauth:2.0:oob'
     @APPLICATION_NAME = 'EmailMyHour'
-    @CLIENT_SECRETS_PATH = '/Users/Eve/GitHub/helper/client_secret.json'
+    # !!FIX ME!!
+    # Please follow the step 1 and step 2 here: https://developers.google.com/sheets/quickstart/ruby
+    @CLIENT_SECRETS_PATH = 'PATH/TO/JSON'
     @CREDENTIALS_PATH = File.join(Dir.home, '.credentials',
                                  "sheets.googleapis.com-SPSHourSheet.yaml")
     @SCOPE = Google::Apis::SheetsV4::AUTH_SPREADSHEETS_READONLY
-    @FULL_NAME = 'Zhang, Jingyiping '
+    # !!FIX ME!! Plase keep the space there as it is
+    @FULL_NAME = 'LASTNAME, FIRSTNAME '
+    # !!FIX ME!!
+    @YOUR_NAME = 'YOURNAME'
   end
 
   ##
@@ -71,7 +78,7 @@ class Extract_From_Google_Sheet
     if !specialNotes.nil? && !specialNotes.empty?
       body << "Note:"+specialNotes+"\n"
     end
-    body << "\nRegards,\nJingyiping"
+    body << "\nRegards,\n"+YOUR_NAME
 
     return body
   end  
@@ -80,8 +87,6 @@ class Extract_From_Google_Sheet
     service = Google::Apis::SheetsV4::SheetsService.new
     service.client_options.application_name = @APPLICATION_NAME
     service.authorization = authorize
-
-    # https://docs.google.com/spreadsheets/d/1ciejIwKmXbUgy615PjmNkDu6weLDOVG1wdXP5zcLlHA/edit#gid=1294512009
 
     startDate,dateRange = findDateRange(Date.parse(Time.now.to_s))
     #puts dateRange

@@ -78,7 +78,7 @@ class Extract_From_Google_Sheet
     if !specialNotes.nil? && !specialNotes.empty?
       body << "Note:"+specialNotes+"\n"
     end
-    body << "\nRegards,\n"+YOUR_NAME
+    body << "\nRegards,\n"+@YOUR_NAME
 
     return body
   end  
